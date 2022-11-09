@@ -12,6 +12,7 @@ public class UnitDone : UnitState
         Debug.Log("Waiting.");
         fesm.GetComponent<PlayerTurnState>()._unitsLeft--;
         currentTurn = fesm.GetComponent<PlayerTurnState>()._turns;
+        StateMachine.Stats.selected = false;
     }
 
     public override void Tick()

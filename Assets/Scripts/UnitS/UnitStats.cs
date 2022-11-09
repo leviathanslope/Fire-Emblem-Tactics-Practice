@@ -5,9 +5,11 @@ using UnityEngine;
 public class UnitStats : MonoBehaviour
 {
     [SerializeField] GameObject feStateController;
+    [SerializeField] GameObject unitStateController;
     public int health = 25;
     public int attack = 5;
     public int range = 2;
+    public bool selected = false;
 
     public void Update()
     {

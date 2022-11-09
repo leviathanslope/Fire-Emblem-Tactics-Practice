@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class UnitFindEnemy : UnitState
 {
+    [SerializeField] FESM fesm;
     public override void Enter()
     {
         Debug.Log("Waiting.");
@@ -32,10 +33,21 @@ public class UnitFindEnemy : UnitState
             {
                 EnemyStats enemyStats = go.GetComponent<EnemyStats>();
                 enemyStats.health -= stats.attack;
+                if (enemyStats.health <= 0)
+                {
+                    fesm.GetComponent<EnemyTurnState>()._enemyUnits--;
+                    go.SetActive(false);
+                }
                 if (enemyStats.health > 0 && Mathf.Abs(go.transform.position.x -this.gameObject.transform.position.x) <= 
                     (enemyStats.range * 1f) && Mathf.Abs(go.transform.position.y - this.gameObject.transform.position.y) <= (enemyStats.range * 1f))
                 {
                     stats.health -= enemyStats.attack;
+                    if (stats.health <= 0)
+                    {
+                        fesm.GetComponent<PlayerTurnState>()._units--;
+                        fesm.GetComponent<PlayerTurnState>()._unitsLeft--;
+                        this.gameObject.transform.parent.gameObject.SetActive(false);
+                    }
                 }
                 StateMachine.ChangeState<UnitDone>();
                 return;

@@ -24,6 +24,10 @@ public class PlayerTurnState : FEState
         {
             StateMachine.ChangeState<EnemyTurnState>();
         }
+        if (StateMachine.GetComponent<EnemyTurnState>()._enemyUnits == 0)
+        {
+            StateMachine.ChangeState<WinState>();
+        }
     }
 
     public override void Exit()
