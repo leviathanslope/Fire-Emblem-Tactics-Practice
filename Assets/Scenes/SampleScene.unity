@@ -216,6 +216,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyUnits: 5
   _enemyUnitsLeft: 5
+  gos: []
   _pauseDuration: 1.5
 --- !u!114 &212897927
 MonoBehaviour:
@@ -583,6 +584,7 @@ GameObject:
   m_Component:
   - component: {fileID: 771033894}
   - component: {fileID: 771033895}
+  - component: {fileID: 771033896}
   - component: {fileID: 771033893}
   m_Layer: 0
   m_Name: Enemy
@@ -675,6 +677,21 @@ MonoBehaviour:
   attack: 5
   range: 2
   movement: 5
+--- !u!114 &771033896
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 771033891}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e38a0169cb0bf144ab764ff5113868c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameObjectt: {fileID: 771033891}
+  fesm: {fileID: 212897923}
+  select: -1
 --- !u!1 &813983540
 GameObject:
   m_ObjectHideFlags: 0
@@ -1319,6 +1336,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1377043302}
   - component: {fileID: 1377043301}
+  - component: {fileID: 1377043303}
   - component: {fileID: 1377043300}
   m_Layer: 0
   m_Name: Enemy (1)
@@ -1411,6 +1429,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1377043303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1377043299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e38a0169cb0bf144ab764ff5113868c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameObjectt: {fileID: 1377043299}
+  fesm: {fileID: 212897923}
+  select: -1
 --- !u!1001 &1404784298
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1523,6 +1556,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1594959922}
   - component: {fileID: 1594959921}
+  - component: {fileID: 1594959923}
   - component: {fileID: 1594959920}
   m_Layer: 0
   m_Name: Enemy (4)
@@ -1615,6 +1649,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1594959923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594959919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e38a0169cb0bf144ab764ff5113868c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameObjectt: {fileID: 1594959919}
+  fesm: {fileID: 212897923}
+  select: -1
 --- !u!1001 &1651690159
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1837,6 +1886,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2066433024}
   - component: {fileID: 2066433023}
+  - component: {fileID: 2066433025}
   - component: {fileID: 2066433022}
   m_Layer: 0
   m_Name: Enemy (2)
@@ -1929,6 +1979,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2066433025
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2066433021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e38a0169cb0bf144ab764ff5113868c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameObjectt: {fileID: 2066433021}
+  fesm: {fileID: 212897923}
+  select: -1
 --- !u!1 &2101463177
 GameObject:
   m_ObjectHideFlags: 0
@@ -2006,6 +2071,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2122630932}
   - component: {fileID: 2122630931}
+  - component: {fileID: 2122630933}
   - component: {fileID: 2122630930}
   m_Layer: 0
   m_Name: Enemy (3)
@@ -2098,6 +2164,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2122630933
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2122630929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e38a0169cb0bf144ab764ff5113868c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameObjectt: {fileID: 2122630929}
+  fesm: {fileID: 212897923}
+  select: -1
 --- !u!1001 &2442112356946617366
 PrefabInstance:
   m_ObjectHideFlags: 0

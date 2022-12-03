@@ -10,12 +10,21 @@ public class EnemyTurnState : FEState
 
     public int _enemyUnits = 5;
     public int _enemyUnitsLeft = 5;
+    public GameObject[] gos;
 
     [SerializeField] float _pauseDuration = 1.5f;
 
     public override void Enter()
     {
         _enemyUnitsLeft = _enemyUnits;
+        gos = GameObject.FindGameObjectsWithTag("Enemy");
+        /*if (gos.Length > 0)
+        {
+            for (var i = 0; i < gos.Length; i++)
+            {
+                gos[i] = null;
+            }
+        }*/
         Debug.Log("Enemy Turn: ...Entering");
         EnemyTurnBegan?.Invoke();
 
@@ -35,8 +44,12 @@ public class EnemyTurnState : FEState
     IEnumerator EnemyThinkingRoutine(float pauseDuration)
     {
         Debug.Log("Enemy thinking...");
+        foreach (GameObject go in gos)
+        {
+            go.GetComponent<EnemyFindUnit>().Execute();
+            yield return new WaitForSeconds(pauseDuration);
+        }
         yield return new WaitForSeconds(pauseDuration);
-
         Debug.Log("Enemy performs action");
         EnemyTurnEnded?.Invoke();
         StateMachine.ChangeState<PlayerTurnState>();
