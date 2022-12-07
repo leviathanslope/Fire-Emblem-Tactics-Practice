@@ -5,6 +5,7 @@ using UnityEngine;
 public class UnitFindEnemy : UnitState
 {
     [SerializeField] FESM fesm;
+    [SerializeField] AudioClip _deathSound;
     public override void Enter()
     {
         Debug.Log("Waiting.");
@@ -35,6 +36,7 @@ public class UnitFindEnemy : UnitState
                 enemyStats.health -= stats.attack;
                 if (enemyStats.health <= 0)
                 {
+                    AudioHelper.PlayClip2D(_deathSound, 1f);
                     fesm.GetComponent<EnemyTurnState>()._enemyUnits--;
                     go.SetActive(false);
                 }
@@ -44,6 +46,7 @@ public class UnitFindEnemy : UnitState
                     stats.health -= enemyStats.attack;
                     if (stats.health <= 0)
                     {
+                        AudioHelper.PlayClip2D(_deathSound, 1f);
                         fesm.GetComponent<PlayerTurnState>()._units--;
                         fesm.GetComponent<PlayerTurnState>()._unitsLeft--;
                         this.gameObject.transform.parent.gameObject.SetActive(false);

@@ -43,13 +43,12 @@ public class EnemyTurnState : FEState
 
     IEnumerator EnemyThinkingRoutine(float pauseDuration)
     {
-        Debug.Log("Enemy thinking...");
         foreach (GameObject go in gos)
         {
             go.GetComponent<EnemyFindUnit>().Execute();
+            Debug.Log("Enemy thinking...");
             yield return new WaitForSeconds(pauseDuration);
         }
-        yield return new WaitForSeconds(pauseDuration);
         Debug.Log("Enemy performs action");
         EnemyTurnEnded?.Invoke();
         StateMachine.ChangeState<PlayerTurnState>();

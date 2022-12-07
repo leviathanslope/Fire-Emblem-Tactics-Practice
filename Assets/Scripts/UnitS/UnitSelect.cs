@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using TMPro;
 
 public class UnitSelect : UnitState
 {
@@ -10,6 +11,8 @@ public class UnitSelect : UnitState
     int _movementLast;
     public List<int> _inputList = new List<int>();
     [SerializeField] GameObject thisGameObject;
+    [SerializeField] TMP_Text movementText;
+    [SerializeField] AudioClip _selectSound;
     Transform initialPos;
     Vector3 positions;
     public override void Enter()
@@ -25,6 +28,7 @@ public class UnitSelect : UnitState
         {
             _movement += _movementLast;
         }
+        movementText.text = "Movement Left: " + _movementRef;
         StateMachine.Cursor.SetActive(false);
         StateMachine.Input.PressedConfirm += OnPressedConfirm;
         StateMachine.Input.PressedCancel += OnPressedCancel;
@@ -48,6 +52,7 @@ public class UnitSelect : UnitState
 
     void OnPressedConfirm()
     {
+        AudioHelper.PlayClip2D(_selectSound, 1f);
         _movementLast = _movement;
         _movement = 0;
         StateMachine.ChangeState<UnitMenu>();
@@ -86,6 +91,7 @@ public class UnitSelect : UnitState
                 _movement--;
                 _inputList.Add(0);
             }
+            movementText.text = "Movement Left: " + _movement;
         }
         else
         {
@@ -103,6 +109,7 @@ public class UnitSelect : UnitState
                 _movement++;
                 _inputList.RemoveAt(_inputList.Count - 1);
             }
+            movementText.text = "Movement Left: " + _movement;
         }
     }
 
@@ -131,6 +138,7 @@ public class UnitSelect : UnitState
                 _movement--;
                 _inputList.Add(1);
             }
+            movementText.text = "Movement Left: " + _movement;
         } else
         {
             if (_inputList.Count != 0)
@@ -147,6 +155,7 @@ public class UnitSelect : UnitState
                 _movement++;
                 _inputList.RemoveAt(_inputList.Count - 1);
             }
+            movementText.text = "Movement Left: " + _movement;
         }
     }
 
@@ -175,6 +184,7 @@ public class UnitSelect : UnitState
                 _movement--;
                 _inputList.Add(2);
             }
+            movementText.text = "Movement Left: " + _movement;
         }
         else
         {
@@ -192,6 +202,7 @@ public class UnitSelect : UnitState
                 _movement++;
                 _inputList.RemoveAt(_inputList.Count - 1);
             }
+            movementText.text = "Movement Left: " + _movement;
         }
     }
 
@@ -220,6 +231,7 @@ public class UnitSelect : UnitState
                 _movement--;
                 _inputList.Add(3);
             }
+            movementText.text = "Movement Left: " + _movement;
         }
         else
         {
@@ -237,6 +249,7 @@ public class UnitSelect : UnitState
                 _movement++;
                 _inputList.RemoveAt(_inputList.Count - 1);
             }
+            movementText.text = "Movement Left: " + _movement;
         }
     }
 }

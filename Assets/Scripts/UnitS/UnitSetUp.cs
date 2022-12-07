@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class UnitSetUp : UnitState
 {
+    public GameObject thisGameObject;
     public override void Enter()
     {
-        Debug.Log("Unit Ready");
         StateMachine.Input.PressedConfirm += OnPressedConfirm;
+        thisGameObject.GetComponent<SpriteRenderer>().color = Color.white;
     }
     public override void Exit()
     {
         StateMachine.Input.PressedConfirm -= OnPressedConfirm;
-        Debug.Log("Selected");
     }
     void OnPressedConfirm()
     {

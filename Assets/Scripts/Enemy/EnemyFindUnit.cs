@@ -1,13 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class EnemyFindUnit : MonoBehaviour
 {
     [SerializeField] GameObject gameObjectt;
     [SerializeField] FESM fesm;
-    GameObject[] gos;
+    public GameObject[] gos;
+    public GameObject closest = null;
+    public float distance = Mathf.Infinity;
     [SerializeField] int select = -1;
+    [SerializeField] AudioClip _deathSound;
 
     public void Start()
     {
@@ -15,78 +19,63 @@ public class EnemyFindUnit : MonoBehaviour
     }
     public void Execute()
     {
+        gameObjectt.GetComponent<SpriteRenderer>().color = Color.red;
+        int i = 0;
         EnemyStats stats = gameObjectt.GetComponent<EnemyStats>();
-        for (var i = 0; i < gos.Length; i++)
+        foreach (GameObject go in gos)
         {
-            if (Mathf.Abs(gos[i].transform.position.x -
-            gameObjectt.transform.position.x) <= (stats.range * 1f + (stats.movement * 1f)) && Mathf.Abs(gos[i].transform.position.y - gameObjectt.transform.position.y)
-            <= (stats.range * 1f + (stats.movement * 1f)))
+            Vector3 diff = go.transform.position - gameObjectt.transform.position;
+            float curDistance = diff.sqrMagnitude;
+            i++;
+            if (curDistance < distance)
             {
+                closest = go;
+                distance = curDistance;
                 select = i;
-                /*Go();*/
-                break;
             }
         }
+        Debug.Log(closest);
+        Go();
     }
 
     public void Go()
     {
+        gameObjectt.GetComponent<SpriteRenderer>().color = Color.gray;
         EnemyStats stats = gameObjectt.GetComponent<EnemyStats>();
-        if (select <= -1)
+        if (select == -1)
         {
             return;
         }
-        if (Mathf.Abs(gos[select].transform.position.x -
+        else
+        {
+            if (Mathf.Abs(gos[select].transform.position.x -
             gameObjectt.transform.position.x) <= (stats.range * 1f + (stats.movement * 1f)) && Mathf.Abs(gos[select].transform.position.y - gameObjectt.transform.position.y)
             <= (stats.range * 1f + (stats.movement * 1f)))
-        {
-            Transform unitPos = gos[select].transform;
-            while (stats.movement > 0)
             {
-                float movement = 5;
-                if (Mathf.Abs(unitPos.position.x - gameObjectt.transform.position.x) > (stats.range * 1f))
-                {
-                    if (unitPos.position.x < 0)
-                    {
-                        gameObjectt.transform.Translate(0.99f, 0, 0);
-                        movement--;
-                    }
-                    else
-                    {
-                        gameObjectt.transform.Translate(-0.99f, 0, 0);
-                        movement--;
-                    }
-                    if (unitPos.position.y < 0)
-                    {
-                        gameObjectt.transform.Translate(0, 0.99f, 0);
-                        movement--;
-                    }
-                    else
-                    {
-                        gameObjectt.transform.Translate(0, -0.99f, 0);
-                        movement--;
-                    }
-                }
-            }
+                Transform unitPos = gos[select].transform;
 
-            if (Mathf.Abs(gos[select].transform.position.x - gameObjectt.transform.position.x) <= (stats.range * 1f) &&
-                Mathf.Abs(gos[select].transform.position.y - gameObjectt.transform.position.y) <= (stats.range * 1f))
-            {
-                gos[select].GetComponent<UnitStats>().health -= stats.attack;
-                if (gos[select].GetComponent<UnitStats>().health <= 0)
+                if (Mathf.Abs(gos[select].transform.position.x - gameObjectt.transform.position.x) <= (stats.range * 1f) &&
+                    Mathf.Abs(gos[select].transform.position.y - gameObjectt.transform.position.y) <= (stats.range * 1f))
                 {
-                    fesm.GetComponent<PlayerTurnState>()._units--;
-                    gos[select].SetActive(false);
-                }
-                if (gos[select].GetComponent<UnitStats>().health > 0 && Mathf.Abs(gos[select].transform.position.x - gameObjectt.transform.position.x) <=
-                (gos[select].GetComponent<UnitStats>().range * 1f) && Mathf.Abs(gos[select].transform.position.y - gameObjectt.transform.position.y) <= (gos[select].GetComponent<UnitStats>().range * 1f))
-                {
-                    stats.health -= gos[select].GetComponent<UnitStats>().attack;
-                    if (stats.health <= 0)
+                    Debug.Log("Go");
+                    gos[select].GetComponent<UnitStats>().health -= stats.attack;
+                    if (gos[select].GetComponent<UnitStats>().health <= 0)
                     {
-                        fesm.GetComponent<EnemyTurnState>()._enemyUnits--;
-                        fesm.GetComponent<EnemyTurnState>()._enemyUnitsLeft--;
-                        gameObject.transform.parent.gameObject.SetActive(false);
+                        AudioHelper.PlayClip2D(_deathSound, 1f);
+                        fesm.GetComponent<PlayerTurnState>()._units--;
+                        gos[select].SetActive(false);
+                    }
+                    if (gos[select].GetComponent<UnitStats>().health > 0 && Mathf.Abs(gos[select].transform.position.x - gameObjectt.transform.position.x) <=
+                    (gos[select].GetComponent<UnitStats>().range * 1f) && Mathf.Abs(gos[select].transform.position.y - gameObjectt.transform.position.y) <= (gos[select].GetComponent<UnitStats>().range * 1f))
+                    {
+                        stats.health -= gos[select].GetComponent<UnitStats>().attack;
+                        if (stats.health <= 0)
+                        {
+                            AudioHelper.PlayClip2D(_deathSound, 1f);
+                            fesm.GetComponent<EnemyTurnState>()._enemyUnits--;
+                            fesm.GetComponent<EnemyTurnState>()._enemyUnitsLeft--;
+                            gameObject.transform.parent.gameObject.SetActive(false);
+                        }
                     }
                 }
             }

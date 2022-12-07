@@ -6,6 +6,7 @@ public class UnitDone : UnitState
 {
     [SerializeField] FESM fesm;
     int currentTurn;
+    public GameObject unit;
     public override void Enter()
     {
         StateMachine.Cursor.SetActive(true);
@@ -13,6 +14,7 @@ public class UnitDone : UnitState
         fesm.GetComponent<PlayerTurnState>()._unitsLeft--;
         currentTurn = fesm.GetComponent<PlayerTurnState>()._turns;
         StateMachine.Stats.selected = false;
+        unit.gameObject.GetComponent<SpriteRenderer>().color = Color.gray;
     }
 
     public override void Tick()
@@ -26,6 +28,5 @@ public class UnitDone : UnitState
 
     public override void Exit()
     {
-        
     }
 }
